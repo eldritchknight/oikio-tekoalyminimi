@@ -1,0 +1,103 @@
+{
+  "boot": {
+    "title": "OIKIO // AI OPERATOR TERMINAL",
+    "lines": [
+      "System booting...",
+      "",
+      "This is not a test.",
+      "This is a guided reflection on how you work with AI.",
+      "",
+      "Your goal:",
+      "Identify one small change that makes your daily work easier.",
+      "",
+      "Type \"start\" or click below to begin."
+    ],
+    "buttons": ["START", "HELP"]
+  },
+
+  "help": {
+    "title": "KÄYTETTÄVISSÄ OLEVAT KOMENNOT",
+    "commands": [
+      { "command": "start", "description": "aloita kokemus" },
+      { "command": "fields", "description": "näytä pelikentät" },
+      { "command": "enter <n>", "description": "siirry pelikenttään (1–6)" },
+      { "command": "status", "description": "näytä eteneminen" },
+      { "command": "back", "description": "palaa edelliseen näkymään" },
+      { "command": "next", "description": "siirry seuraavaan kenttään" },
+      { "command": "summary", "description": "näytä yhteenveto" },
+      { "command": "export", "description": "lataa omat valinnat JSON-tiedostona" },
+      { "command": "reset", "description": "nollaa eteneminen" },
+      { "command": "help", "description": "näytä tämä ohje" }
+    ]
+  },
+
+  "hub": {
+    "title": "PELIALUEET",
+    "description": "Valitse pelikenttä. Voit edetä missä järjestyksessä tahansa.",
+    "status": {
+      "completed": "KALIBROITU",
+      "notCompleted": "EI VIELÄ KÄSITELTY"
+    }
+  },
+
+  "field": {
+    "selectionPrompt": "Valitse sinulle tutuin tapa toimia:",
+    "observationTitle": "HAVAITTO",
+    "recommendationTitle": "OIKIO-MINIMI",
+    "recommendationSubtitle": "Tämä toimintatapa tuo yleensä enemmän arvoa arjessa."
+  },
+
+  "pledge": {
+    "title": "KOKEILULUPAUS (ITSELLESI)",
+    "description": [
+      "Valitse yksi asia, jota kokeilet seuraavan arjen aikana.",
+      "Tätä ei seurata – tämä on vain sinua varten."
+    ],
+    "buttons": {
+      "save": "TALLENNA",
+      "skip": "OHITA"
+    }
+  },
+
+  "summary": {
+    "title": "YHTEENVETO",
+    "description": [
+      "Olet käynyt läpi tekoälyn käyttöön liittyviä toimintatapoja.",
+      "",
+      "Alla on yhteenveto valinnoistasi ja kokeiluista,",
+      "joita haluat mahdollisesti testata arjessa."
+    ]
+  },
+
+  "export": {
+    "title": "VALINNAT LADATTU",
+    "description": [
+      "JSON-tiedosto sisältää:",
+      "- käsitellyt pelikentät",
+      "- valitsemasi toimintatavat",
+      "- kokeilulupauksesi"
+    ]
+  },
+
+  "reset": {
+    "title": "HALUATKO VARMASTI NOLLATA ETENEMISEN?",
+    "description": [
+      "Kaikki valinnat poistetaan tältä laitteelta.",
+      "Tätä ei voi perua."
+    ],
+    "buttons": {
+      "confirm": "KYLLÄ, NOLLAA",
+      "cancel": "PERUUTA"
+    }
+  },
+
+  "endScreen": {
+    "lines": [
+      "Tekoälyn hyödyntäminen ei ole yksittäinen taito,",
+      "vaan tapa työskennellä.",
+      "",
+      "Jos kokeilet yhtä asiaa tästä kokonaisuudesta,",
+      "kokeile projektimaista työskentelyä."
+    ]
+  }
+}
