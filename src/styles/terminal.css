@@ -477,3 +477,80 @@ body {
                0 0 10px var(--terminal-cyan),
                0 0 20px rgba(0, 217, 255, 0.3);
 }
+
+/* ===== BOOT VIEW STYLES ===== */
+
+.boot-view {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ASCII Logo */
+.boot-ascii-logo {
+  color: var(--terminal-cyan);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+  margin: 0 0 24px 0;
+  padding: 0;
+  white-space: pre;
+  overflow-x: auto;
+  text-shadow: 0 0 8px rgba(0, 217, 255, 0.4);
+}
+
+/* Boot text container */
+.boot-text {
+  margin-bottom: 24px;
+}
+
+/* ===== BOOT FADE ANIMATION ===== */
+
+@keyframes bootFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Base boot fade class */
+.boot-fade {
+  animation: bootFadeIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+/* Staggered delays: logo (0ms) -> text (150ms) -> buttons (300ms) */
+.boot-fade--logo {
+  animation-delay: 0ms;
+}
+
+.boot-fade--text {
+  animation-delay: 150ms;
+}
+
+.boot-fade--buttons {
+  animation-delay: 300ms;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .boot-fade {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Responsive: ASCII logo scrolls horizontally on mobile */
+@media (max-width: 600px) {
+  .boot-ascii-logo {
+    font-size: 9px;
+    line-height: 1.1;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
