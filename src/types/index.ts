@@ -50,6 +50,7 @@ export interface HelpCommand {
 export interface UiTexts {
   boot: {
     title: string;
+    asciiLogo?: string[];
     lines: string[];
     buttons: string[];
   };
