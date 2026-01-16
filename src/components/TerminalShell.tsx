@@ -1,10 +1,20 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import type { UiTexts, SurveyData, AppState, ViewMode, TerminalLine, OptionKey } from '../types';
-import { loadState, saveState, clearState, setAnswer, setPledges } from '../state/storage';
+import {
+  loadState,
+  saveState,
+  clearState,
+  setAnswer,
+  setPledges,
+  hasCelebrationBeenShown,
+  markCelebrationShown,
+  clearCelebrationFlag,
+} from '../state/storage';
 import { generateExportData, downloadExport } from '../state/exportData';
 import { parseCommand } from '../terminal/commandRouter';
 import { TerminalHistory } from './TerminalHistory';
 import { CommandInput } from './CommandInput';
+import { CelebrationOverlay } from './CelebrationOverlay';
 import { BootView } from '../views/BootView';
 import { HelpView } from '../views/HelpView';
 import { HubView } from '../views/HubView';
@@ -27,11 +37,31 @@ export function TerminalShell({ uiTexts, surveyData }: Props) {
   const [view, setView] = useState<ViewMode>('boot');
   const [currentFieldIndex, setCurrentFieldIndex] = useState<number>(0);
   const [history, setHistory] = useState<TerminalLine[]>([]);
+  const [showCelebration, setShowCelebration] = useState(false);
+
+  const totalFields = surveyData.gameboard.length;
 
   // Persist state changes
   useEffect(() => {
     saveState(appState);
   }, [appState]);
+
+  const handleCelebrationComplete = useCallback(() => {
+    setShowCelebration(false);
+    setView('summary');
+  }, []);
+
+  // Helper to check and trigger celebration after answer is set
+  const checkAndTriggerCelebration = useCallback((newState: AppState) => {
+    const completedCount = Object.keys(newState.answers).length;
+    const allCompleted = completedCount === totalFields;
+
+    if (allCompleted && !hasCelebrationBeenShown()) {
+      markCelebrationShown();
+      // Use setTimeout to avoid synchronous state updates
+      setTimeout(() => setShowCelebration(true), 0);
+    }
+  }, [totalFields]);
 
   const addToHistory = useCallback((content: string | React.ReactNode, type: TerminalLine['type'] = 'system') => {
     setHistory((prev) => [...prev, { id: generateLineId(), type, content }]);
@@ -55,7 +85,8 @@ export function TerminalShell({ uiTexts, surveyData }: Props) {
     const newState = setAnswer(appState, field.id, option);
     setAppState(newState);
     addToHistory(`Valitsit vaihtoehdon ${option}`, 'success');
-  }, [appState, currentFieldIndex, surveyData.gameboard, addToHistory]);
+    checkAndTriggerCelebration(newState);
+  }, [appState, currentFieldIndex, surveyData.gameboard, addToHistory, checkAndTriggerCelebration]);
 
   // Handle pledge save
   const handleSavePledges = useCallback((pledges: string[]) => {
@@ -83,6 +114,7 @@ export function TerminalShell({ uiTexts, surveyData }: Props) {
   // Handle reset confirm
   const handleResetConfirm = useCallback(() => {
     clearState();
+    clearCelebrationFlag();
     setAppState(loadState());
     addToHistory('Eteneminen nollattu', 'success');
     setView('boot');
@@ -267,6 +299,11 @@ export function TerminalShell({ uiTexts, surveyData }: Props) {
       </div>
 
       <CommandInput onCommand={handleCommand} />
+
+      {/* Celebration overlay */}
+      {showCelebration && (
+        <CelebrationOverlay onComplete={handleCelebrationComplete} />
+      )}
     </div>
   );
 }

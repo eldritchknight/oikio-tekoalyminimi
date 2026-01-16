@@ -78,3 +78,30 @@ export function getCompletedFieldsCount(state: AppState): number {
 export function isFieldCompleted(state: AppState, fieldId: string): boolean {
   return fieldId in state.answers;
 }
+
+// Celebration flag management
+const CELEBRATION_KEY = 'oikio-celebration-shown';
+
+export function hasCelebrationBeenShown(): boolean {
+  try {
+    return localStorage.getItem(CELEBRATION_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export function markCelebrationShown(): void {
+  try {
+    localStorage.setItem(CELEBRATION_KEY, 'true');
+  } catch {
+    // Ignore errors
+  }
+}
+
+export function clearCelebrationFlag(): void {
+  try {
+    localStorage.removeItem(CELEBRATION_KEY);
+  } catch {
+    // Ignore errors
+  }
+}

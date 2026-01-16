@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import type { UiTexts, SurveyField, AppState, OptionKey } from '../types';
 import { getInterpretationGroup } from '../state/storage';
 
@@ -16,6 +16,8 @@ interface Props {
 }
 
 type Phase = 'selection' | 'observation' | 'pledge' | 'complete';
+
+const OPTION_KEYS: OptionKey[] = ['A', 'B', 'C', 'D'];
 
 // Inner component that resets when key changes
 function FieldViewInner({
@@ -54,6 +56,28 @@ function FieldViewInner({
   const [selectedOption, setSelectedOption] = useState<OptionKey | null>(existingAnswer || null);
   const [selectedPledges, setSelectedPledges] = useState<string[]>(existingPledges);
 
+  // Arrow key navigation state for options
+  const [activeOptionIndex, setActiveOptionIndex] = useState(0);
+  const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Arrow key navigation state for pledges
+  const [activePledgeIndex, setActivePledgeIndex] = useState(0);
+  const pledgeRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // Focus active option when index changes in selection phase
+  useEffect(() => {
+    if (phase === 'selection') {
+      optionRefs.current[activeOptionIndex]?.focus();
+    }
+  }, [activeOptionIndex, phase]);
+
+  // Focus active pledge when index changes in pledge phase
+  useEffect(() => {
+    if (phase === 'pledge') {
+      pledgeRefs.current[activePledgeIndex]?.focus();
+    }
+  }, [activePledgeIndex, phase]);
+
   const handleOptionSelect = (option: OptionKey) => {
     setSelectedOption(option);
     onSelectOption(option);
@@ -62,13 +86,70 @@ function FieldViewInner({
     // Auto-advance to pledge after brief delay
     setTimeout(() => {
       setPhase('pledge');
+      setActivePledgeIndex(0);
     }, 100);
+  };
+
+  const handleOptionKeyDown = (e: React.KeyboardEvent, index: number) => {
+    const optionsCount = field.options.length;
+
+    switch (e.key) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+        e.preventDefault();
+        setActiveOptionIndex((prev) => (prev + 1) % optionsCount);
+        break;
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        e.preventDefault();
+        setActiveOptionIndex((prev) => (prev - 1 + optionsCount) % optionsCount);
+        break;
+      case 'Home':
+        e.preventDefault();
+        setActiveOptionIndex(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        setActiveOptionIndex(optionsCount - 1);
+        break;
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        handleOptionSelect(field.options[index].key);
+        break;
+    }
   };
 
   const handlePledgeToggle = (pledge: string) => {
     setSelectedPledges((prev) =>
       prev.includes(pledge) ? prev.filter((p) => p !== pledge) : [...prev, pledge]
     );
+  };
+
+  const handlePledgeKeyDown = (e: React.KeyboardEvent) => {
+    const pledgesCount = field.pledge.choices.length;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActivePledgeIndex((prev) => Math.min(prev + 1, pledgesCount - 1));
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActivePledgeIndex((prev) => Math.max(prev - 1, 0));
+        break;
+      case 'Home':
+        e.preventDefault();
+        setActivePledgeIndex(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        setActivePledgeIndex(pledgesCount - 1);
+        break;
+      case ' ':
+        // Space toggles - let default behavior handle it
+        break;
+    }
   };
 
   const handleSavePledges = () => {
@@ -112,19 +193,32 @@ function FieldViewInner({
             <span className="text-cyan">{uiTexts.field.selectionPrompt}</span>
           </p>
 
-          <div className="terminal-options" role="radiogroup" aria-label="Valitse vaihtoehto">
-            {field.options.map((option) => (
-              <button
-                key={option.key}
-                className="terminal-option"
-                onClick={() => handleOptionSelect(option.key)}
-                role="radio"
-                aria-checked={selectedOption === option.key}
-              >
-                <span className="terminal-option-key">[{option.key}]</span>
-                <span>{option.text}</span>
-              </button>
-            ))}
+          <div
+            className="terminal-options"
+            role="listbox"
+            aria-label="Valitse vaihtoehto"
+            aria-activedescendant={`option-${OPTION_KEYS[activeOptionIndex]}`}
+          >
+            {field.options.map((option, index) => {
+              const isActive = index === activeOptionIndex;
+              return (
+                <button
+                  key={option.key}
+                  id={`option-${option.key}`}
+                  ref={(el) => { optionRefs.current[index] = el; }}
+                  className={`terminal-option ${isActive ? 'terminal-option--active' : ''}`}
+                  onClick={() => handleOptionSelect(option.key)}
+                  onKeyDown={(e) => handleOptionKeyDown(e, index)}
+                  onFocus={() => setActiveOptionIndex(index)}
+                  role="option"
+                  tabIndex={isActive ? 0 : -1}
+                  aria-selected={isActive}
+                >
+                  <span className="terminal-option-key">[{option.key}]</span>
+                  <span>{option.text}</span>
+                </button>
+              );
+            })}
           </div>
         </>
       )}
@@ -168,17 +262,27 @@ function FieldViewInner({
           <p className="text-dim" style={{ marginTop: '12px' }}>{field.pledge.timeframe}</p>
 
           <div className="terminal-checkbox-group" role="group" aria-label="Kokeilulupaukset">
-            {field.pledge.choices.map((choice, index) => (
-              <label key={index} className="terminal-checkbox">
-                <input
-                  type="checkbox"
-                  checked={selectedPledges.includes(choice)}
-                  onChange={() => handlePledgeToggle(choice)}
-                  aria-label={choice}
-                />
-                <span className="terminal-checkbox-label">{choice}</span>
-              </label>
-            ))}
+            {field.pledge.choices.map((choice, index) => {
+              const isActive = index === activePledgeIndex;
+              return (
+                <label
+                  key={index}
+                  className={`terminal-checkbox ${isActive ? 'terminal-checkbox--active' : ''}`}
+                >
+                  <input
+                    ref={(el) => { pledgeRefs.current[index] = el; }}
+                    type="checkbox"
+                    checked={selectedPledges.includes(choice)}
+                    onChange={() => handlePledgeToggle(choice)}
+                    onKeyDown={handlePledgeKeyDown}
+                    onFocus={() => setActivePledgeIndex(index)}
+                    tabIndex={isActive ? 0 : -1}
+                    aria-label={choice}
+                  />
+                  <span className="terminal-checkbox-label">{choice}</span>
+                </label>
+              );
+            })}
           </div>
 
           <div className="terminal-buttons">
