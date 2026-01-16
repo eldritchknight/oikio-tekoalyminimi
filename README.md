@@ -43,14 +43,35 @@ Kaikki sisältö ladataan JSON-tiedostosta.
 
 ```text
 /assets
-└── survey.json        # Pelikenttien sisältö
+├── survey.json        # Pelikenttien sisältö
+└── ui-texts.json      # UI-tekstit (suomi + boot EN)
+
+/public/assets         # Staattisesti tarjoiltavat JSON-tiedostot
 
 /src
 ├── components         # Terminal UI -komponentit
-├── views              # Boot, Hub, Field, Summary
+│   ├── TerminalShell.tsx
+│   ├── TerminalHistory.tsx
+│   └── CommandInput.tsx
+├── views              # Näkymät
+│   ├── BootView.tsx
+│   ├── HubView.tsx
+│   ├── FieldView.tsx
+│   ├── SummaryView.tsx
+│   ├── HelpView.tsx
+│   └── ResetView.tsx
 ├── terminal           # Komentojen parseri ja reititys
+│   └── commandRouter.ts
 ├── state              # localStorage-logiikka
-└── styles             # Terminal- ja pixel-tyylit
+│   ├── storage.ts
+│   └── exportData.ts
+├── data               # JSON-loaderit
+│   ├── loadSurvey.ts
+│   └── loadUiTexts.ts
+├── types              # TypeScript-tyypit
+│   └── index.ts
+└── styles             # Terminal-tyylit
+    └── terminal.css
 ```
 
 ---
@@ -81,25 +102,38 @@ Tuotettu build on staattinen ja soveltuu esim.:
 
 ---
 
-## ✏️ Sisällön muokkaaminen*
+## ✏️ Sisällön muokkaaminen
 
-Kaikki pelikenttien sisältö sijaitsee tiedostossa:
+Pelikenttien sisältö ja käyttöliittymätekstit sijaitsevat erillisistä JSON-tiedostoissa:
 
 ```text
-/assets/survey.json
+/assets/survey.json      # Pelikenttien sisältö (kysymykset, vaihtoehdot, tulkinnat)
+/assets/ui-texts.json    # UI-tekstit (otsikot, painikkeet, ohjeet)
 ```
 
-Voit:
+### survey.json
 
-* muokata tekstejä
-* lisätä kenttiä
-* muuttaa kokeilulupauksia
+Sisältää:
+* Pelikenttien otsikot, teemat ja tilannekuvaukset
+* A–D vaihtoehdot per kenttä
+* Tulkinnat (A_B ja C_D ryhmille)
+* Suositukset (Oikio-minimi)
+* Kokeilulupausvaihtoehdot
 
-Ilman koodimuutoksia.
+### ui-texts.json
+
+Sisältää:
+* Boot-näkymän tekstit (englanti)
+* Komento-ohjeet (suomi)
+* Hub-näkymän tekstit
+* Kentän ja lupauksen otsikot
+* Yhteenveto- ja nollausviestit
+
+Voit muokata tekstejä, lisätä kenttiä ja muuttaa kokeilulupauksia ilman koodimuutoksia.
 
 ---
 
-## 💾 Tallennus & vienti*
+## 💾 Tallennus & vienti
 
 Käyttäjän valinnat tallennetaan selaimen `localStorageen`.
 
