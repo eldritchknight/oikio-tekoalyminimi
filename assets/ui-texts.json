@@ -42,14 +42,14 @@
     "title": "PELIALUEET",
     "description": "Valitse pelikenttä. Voit edetä missä järjestyksessä tahansa.",
     "status": {
-      "completed": "KALIBROITU",
+      "completed": "VALMIS",
       "notCompleted": "EI VIELÄ KÄSITELTY"
     }
   },
 
   "field": {
     "selectionPrompt": "Valitse sinulle tutuin tapa toimia:",
-    "observationTitle": "HAVAITTO",
+    "observationTitle": "HAVAINTO",
     "recommendationTitle": "OIKIO-MINIMI",
     "recommendationSubtitle": "Tämä toimintatapa tuo yleensä enemmän arvoa arjessa."
   },
