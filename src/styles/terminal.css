@@ -1,0 +1,479 @@
+/* Terminal aesthetic with cyan accent */
+:root {
+  --terminal-bg: #0a0e14;
+  --terminal-bg-secondary: #111820;
+  --terminal-cyan: #00d9ff;
+  --terminal-cyan-dim: #00a5c4;
+  --terminal-text: #e6e6e6;
+  --terminal-text-dim: #8b949e;
+  --terminal-success: #3fb950;
+  --terminal-error: #f85149;
+  --terminal-highlight: #1a2a38;
+  --terminal-border: #1f3040;
+  --font-mono: 'IBM Plex Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: var(--terminal-bg);
+  color: var(--terminal-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle scanline effect */
+.terminal-shell::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+/* Main shell container */
+.terminal-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  position: relative;
+}
+
+/* Header */
+.terminal-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--terminal-border);
+  margin-bottom: 16px;
+}
+
+.terminal-title {
+  color: var(--terminal-cyan);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+}
+
+/* Scrollable history area */
+.terminal-history {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-cyan-dim) var(--terminal-bg-secondary);
+}
+
+.terminal-history::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-history::-webkit-scrollbar-track {
+  background: var(--terminal-bg-secondary);
+}
+
+.terminal-history::-webkit-scrollbar-thumb {
+  background-color: var(--terminal-cyan-dim);
+  border-radius: 3px;
+}
+
+/* Terminal lines */
+.terminal-line {
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+.terminal-line--system {
+  color: var(--terminal-text);
+}
+
+.terminal-line--user {
+  color: var(--terminal-cyan);
+}
+
+.terminal-line--user::before {
+  content: '> ';
+}
+
+.terminal-line--error {
+  color: var(--terminal-error);
+}
+
+.terminal-line--success {
+  color: var(--terminal-success);
+}
+
+.terminal-line--highlight {
+  background-color: var(--terminal-highlight);
+  padding: 12px;
+  border-left: 3px solid var(--terminal-cyan);
+  margin: 12px 0;
+}
+
+/* Input area */
+.terminal-input-container {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--terminal-bg-secondary);
+  border: 1px solid var(--terminal-border);
+  border-radius: 4px;
+}
+
+.terminal-prompt {
+  color: var(--terminal-cyan);
+  margin-right: 8px;
+  user-select: none;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  outline: none;
+  caret-color: var(--terminal-cyan);
+}
+
+.terminal-input::placeholder {
+  color: var(--terminal-text-dim);
+}
+
+/* Blinking cursor effect for input */
+.terminal-input:focus {
+  animation: none;
+}
+
+/* Buttons */
+.terminal-button {
+  background-color: transparent;
+  color: var(--terminal-cyan);
+  border: 1px solid var(--terminal-cyan);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 4px;
+  display: inline-block;
+}
+
+.terminal-button:hover,
+.terminal-button:focus {
+  background-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+}
+
+.terminal-button:focus-visible {
+  outline: 2px solid var(--terminal-cyan);
+  outline-offset: 2px;
+}
+
+.terminal-button--primary {
+  background-color: var(--terminal-cyan);
+  color: var(--terminal-bg);
+}
+
+.terminal-button--primary:hover,
+.terminal-button--primary:focus {
+  background-color: transparent;
+  color: var(--terminal-cyan);
+}
+
+.terminal-button--danger {
+  border-color: var(--terminal-error);
+  color: var(--terminal-error);
+}
+
+.terminal-button--danger:hover,
+.terminal-button--danger:focus {
+  background-color: var(--terminal-error);
+  color: var(--terminal-bg);
+  box-shadow: 0 0 10px rgba(248, 81, 73, 0.5);
+}
+
+/* Options (clickable A-D) */
+.terminal-options {
+  margin: 16px 0;
+}
+
+.terminal-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+  color: var(--terminal-text);
+  border: 1px solid var(--terminal-border);
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.terminal-option:hover,
+.terminal-option:focus {
+  border-color: var(--terminal-cyan);
+  background-color: var(--terminal-highlight);
+  outline: none;
+}
+
+.terminal-option:focus-visible {
+  outline: 2px solid var(--terminal-cyan);
+  outline-offset: 2px;
+}
+
+.terminal-option-key {
+  color: var(--terminal-cyan);
+  font-weight: 600;
+  margin-right: 12px;
+}
+
+/* Checkbox (pledge) */
+.terminal-checkbox-group {
+  margin: 16px 0;
+}
+
+.terminal-checkbox {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.terminal-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--terminal-cyan);
+  background: transparent;
+  margin-right: 12px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.terminal-checkbox input[type="checkbox"]:checked {
+  background-color: var(--terminal-cyan);
+}
+
+.terminal-checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--terminal-bg);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.terminal-checkbox input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--terminal-cyan);
+  outline-offset: 2px;
+}
+
+.terminal-checkbox-label {
+  color: var(--terminal-text);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Field list (hub) */
+.terminal-field-list {
+  margin: 16px 0;
+}
+
+.terminal-field-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--terminal-border);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terminal-field-item:hover,
+.terminal-field-item:focus {
+  border-color: var(--terminal-cyan);
+  background-color: var(--terminal-highlight);
+  outline: none;
+}
+
+.terminal-field-item:focus-visible {
+  outline: 2px solid var(--terminal-cyan);
+  outline-offset: 2px;
+}
+
+.terminal-field-number {
+  color: var(--terminal-cyan);
+  font-weight: 600;
+  margin-right: 12px;
+}
+
+.terminal-field-title {
+  flex: 1;
+  color: var(--terminal-text);
+}
+
+.terminal-field-status {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.terminal-field-status--completed {
+  background-color: rgba(63, 185, 80, 0.2);
+  color: var(--terminal-success);
+  border: 1px solid var(--terminal-success);
+}
+
+.terminal-field-status--pending {
+  background-color: rgba(139, 148, 158, 0.1);
+  color: var(--terminal-text-dim);
+  border: 1px solid var(--terminal-text-dim);
+}
+
+/* Section headers */
+.terminal-section-header {
+  color: var(--terminal-cyan);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 24px 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Divider */
+.terminal-divider {
+  border: none;
+  border-top: 1px solid var(--terminal-border);
+  margin: 16px 0;
+}
+
+/* Highlight box */
+.terminal-highlight-box {
+  background-color: var(--terminal-highlight);
+  border-left: 3px solid var(--terminal-cyan);
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.terminal-highlight-box--warning {
+  border-left-color: #d29922;
+}
+
+/* Text styles */
+.text-cyan {
+  color: var(--terminal-cyan);
+}
+
+.text-dim {
+  color: var(--terminal-text-dim);
+}
+
+.text-success {
+  color: var(--terminal-success);
+}
+
+.text-error {
+  color: var(--terminal-error);
+}
+
+/* Buttons container */
+.terminal-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .terminal-shell {
+    padding: 12px;
+  }
+
+  .terminal-title {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  body {
+    font-size: 13px;
+  }
+
+  .terminal-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .terminal-option {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .terminal-field-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .terminal-field-status {
+    margin-top: 8px;
+  }
+}
+
+/* Loading animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-loading::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+}
+
+/* Glow effect for main title */
+.terminal-glow {
+  text-shadow: 0 0 5px var(--terminal-cyan),
+               0 0 10px var(--terminal-cyan),
+               0 0 20px rgba(0, 217, 255, 0.3);
+}

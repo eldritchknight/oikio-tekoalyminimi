@@ -1,0 +1,251 @@
+{
+  "version": "1.0",
+  "language": "fi",
+  "type": "oikio-minimi-skillgame",
+  "fields": {
+    "selection_prompt": "Valitse sinulle tutuin tapa toimia",
+    "pledge_title": "Kokeilulupaus (itsellesi)"
+  },
+  "levels_note": "Vaihtoehdot (A-D) etenevät tyypillisesti alkeiskäytöstä edistyneempään, mutta tätä ei näytetä vastaajalle.",
+  "gameboard": [
+    {
+      "id": "field_01_repeatability",
+      "title": "Pelikenttä 1: Toistettavuus ja rutiinit",
+      "theme": "Miten hyödynnät tekoälyä, kun teet samankaltaista työtä uudelleen?",
+      "situation": "Teet työssäsi tehtäviä, jotka toistuvat viikoittain tai kuukausittain. Ne voivat liittyä esimerkiksi saman tuotteen kehittämiseen, asiakkuuksien hoitamiseen tai sisällön/kampanjoiden/analyysien tuottamiseen. Tekoäly voisi helpottaa tätä työtä – eri tavoin riippuen siitä, miten sitä käytät.",
+      "prompt": "Valitse sinulle tutuin tapa toimia",
+      "options": [
+        {
+          "key": "A",
+          "text": "Kun tarvitsen tekoälyä, avaan yleensä uuden keskustelun ja kirjoitan lyhyesti mitä tarvitsen juuri siinä hetkessä. Ajattelen tekoälyä enemmän yksittäisenä apuna kuin osana työprosessia."
+        },
+        {
+          "key": "B",
+          "text": "Jos aihe on minulle tuttu, saatan joskus jatkaa aiempaa keskustelua, mutta useimmiten aloitan silti alusta. En ole muodostanut selkeää rutiinia tekoälyn käyttöön."
+        },
+        {
+          "key": "C",
+          "text": "Kun teen samantyyppistä työtä uudelleen, palaan usein aiempaan keskusteluun tai hyödynnän vanhaa pohjaa. Tekoäly alkaa olla osa toistuvaa tekemistäni."
+        },
+        {
+          "key": "D",
+          "text": "Minulla on selkeitä keskusteluja tai projekteja, joihin palaan aina tietyn tyyppisissä tehtävissä. Tekoäly on vakiintunut osa työskentelytapaani näissä kokonaisuuksissa."
+        }
+      ],
+      "interpretation": {
+        "A_B": "Tekoäly toimii satunnaisena apurina. Jokainen tehtävä alkaa käytännössä alusta, ja samaa taustaa tulee selitettyä toistuvasti.",
+        "C_D": "Tekoäly tukee toistuvaa työtä. Aiempi konteksti parantaa tuloksia ja säästää aikaa."
+      },
+      "recommendation_title": "Suositeltu käyttötapa (Oikio-minimi)",
+      "recommendation": "Kun huomaat tekeväsi samankaltaista työtä useammin kuin kerran, hyödynnä aiempaa keskustelua tai luo sille oma projekti. Tämä vähentää selittämisen tarvetta ja parantaa lopputulosten laatua.",
+      "pledge": {
+        "timeframe": "Seuraavan kahden viikon aikana kokeilen tätä:",
+        "choices": [
+          "Luon yhden projektin tai pysyvän keskustelun toistuvalle työtehtävälle",
+          "Palaan aiempaan keskusteluun uuden tehtävän yhteydessä sen sijaan, että aloittaisin alusta",
+          "Muu pieni muutos: ______________________"
+        ]
+      }
+    },
+    {
+      "id": "field_02_context_quality",
+      "title": "Pelikenttä 2: Riittävän kontekstin tarjoaminen",
+      "theme": "Miten annat tekoälylle lähtötiedot, kun pyydät siltä apua työtehtävään?",
+      "situation": "Pyydät tekoälyltä apua tehtävässä, joka liittyy esimerkiksi sisällön tuottamiseen, analyysin tekemiseen, ratkaisun ideointiin tai viestin/suunnitelman luonnosteluun. Lopputuloksen laatu riippuu pitkälti siitä, miten hyvin tekoäly ymmärtää tilanteen, tavoitteen ja käyttökontekstin.",
+      "prompt": "Valitse sinulle tutuin tapa toimia",
+      "options": [
+        {
+          "key": "A",
+          "text": "Kuvaan tehtävän lyhyesti omin sanoin ja katson, millaisen vastauksen saan. Jos vastaus ei osu kohdalleen, tarkennan pyytämällä uutta versiota."
+        },
+        {
+          "key": "B",
+          "text": "Kerron yleensä, mitä haluan lopputulokselta, mutta en aina taustoita tilannetta tai käyttötarkoitusta tarkemmin. Luotan siihen, että tekoäly ymmärtää perusidean."
+        },
+        {
+          "key": "C",
+          "text": "Annan tekoälylle tehtävän lisäksi myös taustaa: kenelle tämä on, mihin sitä käytetään ja mitä siinä pitää huomioida. Huomaan saavani selvästi parempia ja osuvampia vastauksia."
+        },
+        {
+          "key": "D",
+          "text": "Rakennan tehtävän niin, että tekoäly ymmärtää kokonaisuuden: tavoitteen, kohderyhmän, rajoitteet ja toivotun lopputuloksen. Näin pääsen usein suoraan lähelle valmista tuotosta."
+        }
+      ],
+      "interpretation": {
+        "A_B": "Tekoäly reagoi yksittäiseen pyyntöön, mutta joutuu arvailemaan kontekstia. Tämä johtaa usein yleisluontoisiin tai epätarkkoihin vastauksiin.",
+        "C_D": "Tekoäly ymmärtää käyttötarkoituksen ja pystyy tuottamaan kohdennetumpia, laadukkaampia lopputuloksia."
+      },
+      "recommendation_title": "Suositeltu käyttötapa (Oikio-minimi)",
+      "recommendation": "Ennen kuin pyydät lopputulosta, kerro tekoälylle vähintään: mikä on tavoite, kenelle tämä on ja mihin sitä käytetään. Tämä yksin parantaa lopputulosta merkittävästi.",
+      "pledge": {
+        "timeframe": "Seuraavan kahden viikon aikana kokeilen tätä:",
+        "choices": [
+          "Lisään jokaiseen pyyntöön käyttötarkoituksen ja kohderyhmän",
+          "Kerron tekoälylle, missä muodossa lopputulosta käytetään",
+          "Pyydän tekoälyä ensin kertomaan, miten se ymmärtää tehtävän"
+        ]
+      }
+    },
+    {
+      "id": "field_03_deep_research_hallucination",
+      "title": "Pelikenttä 3: Ulkoisen kontekstin hankinta (syvätutkimus)",
+      "theme": "Miten toimit, kun tekoälyltä puuttuu riittävä tai luotettava tieto aiheesta?",
+      "situation": "Pyydät tekoälyltä apua aiheessa, josta huomaat itse tietäväsi paljon. Vastauksessa on kuitenkin selviä virheitä tai epätarkkuuksia.",
+      "hallucination_example": "Huomaat tekoälyn puhuvan virheellisesti aiheesta, mistä huomaat tietäväsi paljonkin. Miten voit seuraavalla kerralla välttää hallusinoinnin riskiä seuraavalla kerralla?",
+      "prompt": "Valitse sinulle tutuin tapa toimia",
+      "options": [
+        {
+          "key": "A",
+          "text": "Korjaan tekoälyä itse ja jatkan keskustelua sen pohjalta. Luotan omaan osaamiseeni, enkä yleensä pyydä tekoälyä selvittämään asioita erikseen."
+        },
+        {
+          "key": "B",
+          "text": "Muotoilen kysymyksen uudelleen tai tarkennan pyyntöä, jotta vastaus osuisi paremmin kohdalleen. Pysyn kuitenkin keskustelun tasolla."
+        },
+        {
+          "key": "C",
+          "text": "Pyydän tekoälyä ensin selvittämään aihetta ja kertomaan, mihin tieto perustuu, ennen kuin pyydän varsinaista lopputulosta. Tämä vähentää virheiden määrää."
+        },
+        {
+          "key": "D",
+          "text": "Hyödynnän syvätutkimusta tai erillistä selvitysvaihetta, jotta tekoäly rakentaa vastauksensa kuratoidun tiedon pohjalta. Käytän tätä erityisesti silloin, kun aihe on vaativa tai kriittinen."
+        }
+      ],
+      "interpretation": {
+        "A_B": "Tekoäly toimii pääosin keskustelukumppanina. Vastaukset voivat parantua, mutta riskinä on edelleen virheellinen tai puutteellinen taustatieto.",
+        "C_D": "Tekoäly toimii tiedonhankkijana ja jäsentäjänä. Kuratoitu konteksti vähentää hallusinointia ja parantaa luotettavuutta."
+      },
+      "recommendation_title": "Suositeltu käyttötapa (Oikio-minimi)",
+      "recommendation": "Kun aihe on vaativa, uusi tai kriittinen, pyydä tekoälyä ensin selvittämään ja kokoamaan taustatieto ennen johtopäätöksiä. Tämä pienentää merkittävästi hallusinoinnin riskiä.",
+      "pledge": {
+        "timeframe": "Seuraavan kahden viikon aikana kokeilen tätä:",
+        "choices": [
+          "Käytän syvätutkimusta, kun huomaan tekoälyn vastaavan epävarmasti",
+          "Pyydän tekoälyä erittelemään, mihin sen vastaukset perustuvat",
+          "Erotan selvitysvaiheen ja lopullisen tuotoksen toisistaan"
+        ]
+      }
+    },
+    {
+      "id": "field_04_prompt_chaining",
+      "title": "Pelikenttä 4: Dialoginen toimeksiannon rakentaminen (prompt chaining)",
+      "theme": "Miten rakennat tekoälylle tehtävän, kun lopputuloksen pitää olla täsmällinen?",
+      "situation": "Sinulla on tehtävä, jossa lopputuloksen pitää olla tarkasti rajattu ja sisältöä käytetään suoraan työssä (asiakkaalle, sisäisesti tai järjestelmässä). Pienetkin virheet tai väärät oletukset voivat aiheuttaa lisätyötä. Tällöin pelkkä yksi “tee tämä” -pyyntö ei aina riitä.",
+      "prompt": "Valitse sinulle tutuin tapa toimia",
+      "options": [
+        {
+          "key": "A",
+          "text": "Yritän kirjoittaa mahdollisimman hyvän ja tarkan pyynnön kerralla. Jos lopputulos ei ole hyvä, muokkaan pyyntöä itse ja yritän uudelleen."
+        },
+        {
+          "key": "B",
+          "text": "Keskustelen tekoälyn kanssa ja tarkennan pyyntöä pala kerrallaan, kunnes lopputulos alkaa näyttää oikealta. En kuitenkaan erikseen pysähdy määrittelemään tehtävää kokonaisuutena."
+        },
+        {
+          "key": "C",
+          "text": "Pyydän tekoälyä ensin auttamaan tehtävän tai toimeksiannon määrittelyssä ennen varsinaista tuotosta. Tämä helpottaa oikean lopputuloksen saamista."
+        },
+        {
+          "key": "D",
+          "text": "Rakennan tehtävän vaiheittain yhdessä tekoälyn kanssa: ensin tavoite ja rajaukset, sitten selvitys ja vasta lopuksi lopputulos. Tämä on vakiintunut tapani vaativissa tehtävissä."
+        }
+      ],
+      "interpretation": {
+        "A_B": "Lopputulos syntyy kokeilun kautta. Osa ajasta kuluu vääränlaisten vastausten korjaamiseen.",
+        "C_D": "Tehtävä on selkeä ennen tuotosta. Tämä vähentää arvailua ja parantaa lopputuloksen osuvuutta."
+      },
+      "recommendation_title": "Suositeltu käyttötapa (Oikio-minimi)",
+      "recommendation": "Kun lopputuloksen pitää olla tarkka, pyydä tekoälyä ensin auttamaan tehtävän määrittelyssä: mitä ollaan tekemässä, miksi ja millä reunaehdoilla – ennen kuin pyydät valmista tuotosta.",
+      "pledge": {
+        "timeframe": "Seuraavan kahden viikon aikana kokeilen tätä:",
+        "choices": [
+          "Pyydän tekoälyä ensin muotoilemaan tehtävän tai toimeksiannon",
+          "Määrittelen tavoitetilan ennen varsinaista tuotosta",
+          "Erottelen keskustelun, selvityksen ja lopputuloksen omiksi vaiheikseen"
+        ]
+      }
+    },
+    {
+      "id": "field_05_model_choice",
+      "title": "Pelikenttä 5: Oikean kielimallin ja työkalun valinta",
+      "theme": "Miten valitset tekoälymallin tai työkalun eri tyyppisiin tehtäviin?",
+      "situation": "Käytössäsi on useita tekoälymalleja ja -työkaluja. Osa niistä on nopeita ja kevyitä, osa taas selvästi tehokkaampia mutta “raskaampia”. Kaikki tehtävät eivät kuitenkaan vaadi samaa tasoa.",
+      "prompt": "Valitse sinulle tutuin tapa toimia",
+      "options": [
+        {
+          "key": "A",
+          "text": "Käytän lähes aina oletusmallia enkä juuri mieti, voisiko jokin muu olla parempi. Useimmiten se riittää siihen, mitä tarvitsen."
+        },
+        {
+          "key": "B",
+          "text": "Huomaan, että eri mallit toimivat hieman eri tavoin, mutta valinta jää usein oletukseksi kiireen vuoksi. Vaihdan mallia vain harvoin."
+        },
+        {
+          "key": "C",
+          "text": "Valitsen mallin tehtävän mukaan: kevyempi nopeisiin kysymyksiin, tehokkaampi vaativampiin kokonaisuuksiin. Tämä parantaa selvästi lopputulosta."
+        },
+        {
+          "key": "D",
+          "text": "Ajattelen mallin valintaa osana työprosessia ja vaihdan sitä tietoisesti tehtävän vaativuuden mukaan. Hyödynnän parhaita saatavilla olevia malleja silloin, kun lopputulos on kriittinen."
+        }
+      ],
+      "interpretation": {
+        "A_B": "Lopputulos on usein “riittävän hyvä”, mutta vaativammissa tehtävissä laatu voi jäädä vajaaksi ilman, että syy on heti ilmeinen.",
+        "C_D": "Työkalu tukee tehtävää. Vaativissa töissä parempi malli maksaa itsensä takaisin ajassa ja laadussa."
+      },
+      "recommendation_title": "Suositeltu käyttötapa (Oikio-minimi)",
+      "recommendation": "Kun tehtävä on vaativa, pitkäkestoinen tai suoraan työssä käytettävä, valitse käytettävissä olevista malleista paras. Kevyempi malli riittää nopeisiin ja yksinkertaisiin kysymyksiin. (Esimerkiksi: vaativissa tehtävissä ChatGPT 5.2, Opus 4.5 tai Gemini 3 Pro.)",
+      "pledge": {
+        "timeframe": "Seuraavan kahden viikon aikana kokeilen tätä:",
+        "choices": [
+          "Vaihdan mallia tietoisesti vaativammissa tehtävissä",
+          "Testaan samaa tehtävää kahdella eri mallilla ja vertaan lopputulosta",
+          "Mietin ennen tehtävää: “onko tämä nopea vai vaativa tehtävä?”"
+        ]
+      }
+    },
+    {
+      "id": "field_06_projects_wrapup",
+      "title": "Pelikenttä 6: Projektimainen työskentely tekoälyn kanssa (kokoava)",
+      "theme": "Miten hyödynnät tekoälyä pitkäkestoisissa tai toistuvissa kokonaisuuksissa?",
+      "situation": "Työskentelet kokonaisuuksien parissa, jotka jatkuvat useamman päivän tai viikon, liittyvät samaan tuotteeseen/järjestelmään/asiakkuuteen ja vaativat useita eri tehtäviä (suunnittelu, selvitys, tuottaminen, viimeistely). Tekoäly voisi toimia tässä pysyvänä työparina – eri tavoin riippuen siitä, miten rakennat työskentelyn.",
+      "prompt": "Valitse sinulle tutuin tapa toimia",
+      "options": [
+        {
+          "key": "A",
+          "text": "Käytän tekoälyä yksittäisiin tehtäviin ja aloitan lähes aina uuden keskustelun. Ajattelen tekoälyä enemmän kertakäyttöisenä apuna kuin pitkäaikaisena työkaluna."
+        },
+        {
+          "key": "B",
+          "text": "Jos työ jatkuu pidempään, saatan jatkaa samaa keskustelua, mutta en tuo sinne erikseen taustamateriaaleja tai rakennetta. Kokonaisuus pysyy lähinnä omassa päässäni."
+        },
+        {
+          "key": "C",
+          "text": "Luon projekteja tai pysyviä keskusteluja, kun tiedän työn jatkuvan. Tuon niihin keskeiset taustatiedot ja palaan samaan kokonaisuuteen eri vaiheissa."
+        },
+        {
+          "key": "D",
+          "text": "Rakennan projekteja systemaattisesti ja käytän niitä työtiloina, joissa tekoäly tuntee taustan, tavoitteet ja reunaehdot. Tekoäly toimii aktiivisena työparina koko hankkeen ajan."
+        }
+      ],
+      "interpretation": {
+        "A_B": "Jokainen tehtävä käsitellään erillisenä. Tekoälyltä katoaa helposti kokonaiskuva ja aiemmin tehty työ ei täysin hyödynny.",
+        "C_D": "Tekoäly ymmärtää kokonaisuuden ja pystyy tukemaan työtä pitkäjänteisesti ja johdonmukaisesti."
+      },
+      "recommendation_title": "Suositeltu käyttötapa (Oikio-minimi)",
+      "recommendation": "Kun työ liittyy samaan kokonaisuuteen useamman kerran, luo sille oma projekti ja toimita sinne keskeiset taustatiedot. Näin tekoäly pystyy tukemaan työtäsi johdonmukaisesti alusta loppuun.",
+      "pledge": {
+        "timeframe": "Seuraavan kuukauden aikana kokeilen tätä:",
+        "choices": [
+          "Luon projektin yhteen pitkäkestoiseen työ- tai asiakaskokonaisuuteen",
+          "Toimitan projektiin taustatiedot ja päivitän niitä työn edetessä",
+          "Hyödynnän projektia useissa eri vaiheissa saman työn aikana"
+        ]
+      },
+      "optional_end_screen": [
+        "Tekoälyn hyödyntäminen ei ole yksittäinen taito, vaan tapa työskennellä. Pienikin muutos käyttötavassa voi parantaa laatua, nopeutta ja työrauhaa.",
+        "Jos kokeilet yhtä asiaa tästä kokonaisuudesta, kokeile projektimaisuutta. Se yhdistää kaikki aiemmat pelikentät yhdeksi toimivaksi kokonaisuudeksi."
+      ]
+    }
+  ]
+}
